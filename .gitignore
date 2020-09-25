@@ -1,3 +1,5 @@
 Advanced-React-master/
 ./Advanced-React-master/
-/Advanced-React-master/
+/Advanced-React-master
+backend/node_modules
+backend/.vscode
