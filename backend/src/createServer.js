@@ -14,7 +14,7 @@ const createServer = () => {
         resolverValidationOptions: {
             requireResolversForResolveType: false
         },
-        contex: req => {
+        context: req => {
             return {...req, db}
         }
     })
