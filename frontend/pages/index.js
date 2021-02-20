@@ -1,9 +1,10 @@
-import Link from 'next/link'
+import Items from '../component/Items'
 
 const Home = props => (
   <div>
-    <p>Hey!</p>
+    <Items />
   </div>
 )
 
 export default Home
+// rfce
