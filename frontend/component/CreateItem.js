@@ -46,6 +46,25 @@ function CreateItem() {
       [name]: val
     })
   }
+  const uploadFile = async e => {
+    console.log('upload file...')
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'sickfits')
+
+    const res = await fetch('https://api.cloudinary.com/v1_1/yinoncn/image/upload', {
+      method: 'POST',
+      body: data
+    })
+    const file = await res.json()
+    console.log(file)
+    setItem({
+      ...item,
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url
+    })
+  }
   return (
     <Form
       onSubmit={async e => {
@@ -62,6 +81,18 @@ function CreateItem() {
       }}>
       <Error error={error} />
       <fieldset disabled={loading} aria-busy={loading}>
+        <label htmlFor="file">
+          Image
+          {item.image && <img src={item.image} alt="apload preview" width="200" />}
+          <input
+            onChange={uploadFile}
+            type="file"
+            id="file"
+            name="file"
+            placeholder="upload an image"
+            required
+          />
+        </label>
         <label htmlFor="title">
           Title
           <input
