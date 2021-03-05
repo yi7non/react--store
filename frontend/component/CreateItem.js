@@ -34,7 +34,7 @@ function CreateItem() {
     description: '',
     image: '',
     largeImage: '',
-    price: 0
+    price: ''
   }
 
   const [item, setItem] = useState(itemData)
@@ -46,8 +46,16 @@ function CreateItem() {
       [name]: val
     })
   }
+  const imagePreview = e => {
+    const fr = new FileReader()
+    const image = e.target.files[0]
+    const inpt = e.target
+    fr.readAsDataURL(image)
+    fr.addEventListener('load', () =>
+      inpt.insertAdjacentHTML('afterEnd', `<img width=200 src="${fr.result}">`)
+    )
+  }
   const uploadFile = async e => {
-    console.log('upload file...')
     const files = e.target.files
     const data = new FormData()
     data.append('file', files[0])
@@ -58,13 +66,13 @@ function CreateItem() {
       body: data
     })
     const file = await res.json()
-    console.log(file)
     setItem({
       ...item,
       image: file.secure_url,
       largeImage: file.eager[0].secure_url
     })
   }
+
   return (
     <Form
       onSubmit={async e => {
@@ -85,7 +93,10 @@ function CreateItem() {
           Image
           {item.image && <img src={item.image} alt="apload preview" width="200" />}
           <input
-            onChange={uploadFile}
+            onChange={e => {
+              uploadFile(e)
+              imagePreview(e)
+            }}
             type="file"
             id="file"
             name="file"
@@ -135,3 +146,4 @@ function CreateItem() {
 }
 
 export default CreateItem
+export { CRATE_ITEM_MUTATION }
