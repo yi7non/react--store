@@ -24,6 +24,15 @@ const Mutaitions = {
       },
       info
     )
+  },
+  async deleteItem(parent, args, { db }, info) {
+    const id = args.id
+    // 1. find the item
+    const item = await db.query.item({ where: { id } }, '{id title}')
+    // 2. check if they own that item, or have the premissions
+    // TODO
+    // 3. delete it!
+    return db.mutation.deleteItem({ where: { id } }, info)
   }
 }
 

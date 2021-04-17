@@ -5,6 +5,7 @@ import Title from './styles/Title'
 import ItemStyles from './styles/ItemStyles'
 import PriceTag from './styles/PriceTag'
 import fomatMoney from '../lib/formatMoney'
+import DeleteItem from './DeleteItem'
 
 function Item({ item }) {
   return (
@@ -22,11 +23,11 @@ function Item({ item }) {
       <PriceTag>{fomatMoney(item.price)}</PriceTag>
       <p>{item.description}</p>
       <div className="buttonList">
-        <Link href={{ pathname: 'update', query: { id: item.id } }}>
+        <Link href={{ pathname: '/update', query: { id: item.id } }}>
           <a>Edit ✏</a>
         </Link>
         <button>Add To Cart</button>
-        <button>Delete</button>
+        <DeleteItem id={item.id}>Delete this item ❌</DeleteItem>
       </div>
     </ItemStyles>
   )
@@ -35,5 +36,7 @@ function Item({ item }) {
 Item.propTypes = {
   item: PropTypes.object.isRequired
 }
+// Here is an example documenting the different validators provided:
+// https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
 
 export default Item

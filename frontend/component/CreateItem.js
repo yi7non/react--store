@@ -36,8 +36,8 @@ function CreateItem() {
     largeImage: '',
     price: ''
   }
-
   const [item, setItem] = useState(itemData)
+
   const handleChange = e => {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseInt(value) : value
@@ -46,6 +46,7 @@ function CreateItem() {
       [name]: val
     })
   }
+
   const imagePreview = e => {
     const fr = new FileReader()
     const image = e.target.files[0]
@@ -55,6 +56,7 @@ function CreateItem() {
       inpt.insertAdjacentHTML('afterEnd', `<img width=200 src="${fr.result}">`)
     )
   }
+
   const uploadFile = async e => {
     const files = e.target.files
     const data = new FormData()
@@ -65,6 +67,7 @@ function CreateItem() {
       method: 'POST',
       body: data
     })
+
     const file = await res.json()
     setItem({
       ...item,
@@ -91,7 +94,7 @@ function CreateItem() {
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="file">
           Image
-          {item.image && <img src={item.image} alt="apload preview" width="200" />}
+          {item.image && <img src={item.image} alt="apload preview" width="200" height="200" />}
           <input
             onChange={e => {
               uploadFile(e)
@@ -101,7 +104,7 @@ function CreateItem() {
             id="file"
             name="file"
             placeholder="upload an image"
-            required
+            // required
           />
         </label>
         <label htmlFor="title">
@@ -145,5 +148,5 @@ function CreateItem() {
   )
 }
 
-export default CreateItem
 export { CRATE_ITEM_MUTATION }
+export default CreateItem

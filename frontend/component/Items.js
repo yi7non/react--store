@@ -15,7 +15,7 @@ const ALL_ITEMS_QUERY = gql`
     }
   }
 `
-const Center = styled.p`
+const Center = styled.div`
   text-align: center;
 `
 const ItemsList = styled.div`
@@ -44,3 +44,4 @@ function Items() {
 }
 
 export default Items
+export { ALL_ITEMS_QUERY }
